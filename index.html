@@ -1,9 +1,9 @@
-<!-- version 2.4.21 トリミングモーダル再是正・出力導線再調整 -->
+<!-- version 2.4.22 トリミングモーダル統一・出力ダウンロード修正 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>トレカメーカー v2.4.21</title>
+<title>トレカメーカー v2.4.22</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
@@ -483,18 +483,20 @@ input[type="file"]::-webkit-file-upload-button{
 .modalGuide{color:#111827 !important}
 .stage{background:#fff !important;box-shadow:0 10px 28px rgba(15,23,42,.10)}
 .zoomRow{display:none !important}
-#iconCropModal .cropRow,#simpleTrimModal .cropRow,#freeTrimModal .trimRow{display:flex !important;flex-direction:row-reverse;justify-content:space-between;gap:0;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 20px;pointer-events:none;z-index:1100}
+#iconCropModal .cropRow,#simpleTrimModal .cropRow,#freeTrimModal .trimRow{display:flex !important;flex-direction:row-reverse;justify-content:space-between;align-items:center;gap:0;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 36px;pointer-events:none;z-index:1100}
 #iconCropModal .cropRow .modalActionIconBtn,#simpleTrimModal .cropRow .modalActionIconBtn,#freeTrimModal .trimRow .modalActionIconBtn{flex:0 0 62px !important;pointer-events:auto}
 #iconCropModal .cropRow button + button,#simpleTrimModal .cropRow button + button,#freeTrimModal .trimRow button + button{margin-left:0}
 #iconCropModal .cropRow #iconCropOkBtn,#simpleTrimModal .cropRow #simpleTrimOkBtn,#freeTrimModal .trimRow #freeTrimOkBtn{display:inline-flex !important}
 #iconCropModal .cropRow #iconCropCancelBtn,#simpleTrimModal .cropRow #simpleTrimCancelBtn,#freeTrimModal .trimRow #freeTrimCancelBtn{margin-left:0}
 .modalActionIconBtn{width:62px !important;height:62px !important;min-width:62px !important;min-height:62px !important;flex:0 0 62px !important;border-radius:999px !important;background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important;color:#111 !important;font-weight:700 !important}
 .modalActionIconBtn img{width:28px !important;height:28px !important;object-fit:contain;display:block;margin:0 auto}
-.outputActionRow{display:flex;justify-content:space-between;gap:0;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 20px;pointer-events:none;z-index:1100}
+.outputActionRow{display:flex;justify-content:space-between;align-items:center;gap:12px;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 36px;pointer-events:none;z-index:1100}
 .outputActionRow button{pointer-events:auto}
-.outputModalBtn{width:62px !important;height:62px !important;min-width:62px !important;min-height:62px !important;flex:0 0 62px !important;border-radius:999px !important;background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important;color:#111 !important;font-weight:700 !important}
+.outputModalBtn{height:62px !important;min-height:62px !important;border-radius:999px !important;background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important;color:#111 !important;font-weight:700 !important}
 .outputModalBtn img{width:28px !important;height:28px !important;object-fit:contain;display:block;margin:0 auto}
-#outputShowBtn{font-size:0;line-height:0;letter-spacing:0}
+#outputCloseBtn{width:62px !important;min-width:62px !important;flex:0 0 62px !important}
+#outputShowBtn{width:auto !important;min-width:150px !important;padding:0 18px !important;gap:10px !important;font-size:15px !important;line-height:1 !important;letter-spacing:0 !important;flex:0 0 auto !important}
+#outputShowBtn .outputShowLabel{display:inline-block !important;font-size:15px !important;line-height:1 !important;color:#111 !important}
 
 #iconCropModal.show ~ #menuBtn, #simpleTrimModal.show ~ #menuBtn, #freeTrimModal.show ~ #menuBtn{display:none !important}
 
@@ -556,7 +558,7 @@ input[type="file"]::-webkit-file-upload-button{
     <div class="slotInfo">現在のスロット: <span id="currentSlotLabel">未選択</span></div>
     <div id="slotList"></div>
     <div id="saveStatus" class="saveStatus">未保存</div>
-    <div class="versionInfo">現在のバージョン：v2.4.21</div>
+    <div class="versionInfo">現在のバージョン：v2.4.22</div>
   </div>
 
   <div class="tabPanel">
@@ -1025,9 +1027,17 @@ input[type="file"]::-webkit-file-upload-button{
     return img?img.outerHTML:"";
   }
 
+  function getButtonIconSrc(sourceId){
+    const source=$(sourceId);
+    const img=source&&source.querySelector?source.querySelector("img"):null;
+    return img?img.getAttribute("src")||"":"";
+  }
+
   function applySharedModalIcons(){
-    if(els.outputCloseBtn) els.outputCloseBtn.innerHTML=getButtonIconMarkup("iconCropCancelBtn") || getButtonIconMarkup("simpleTrimCancelBtn") || getButtonIconMarkup("freeTrimCancelBtn");
-    if(els.outputShowBtn) els.outputShowBtn.innerHTML=getButtonIconMarkup("iconCropOkBtn") || getButtonIconMarkup("simpleTrimOkBtn") || getButtonIconMarkup("freeTrimOkBtn") || '見';
+    const closeIcon=getButtonIconMarkup("iconCropCancelBtn") || getButtonIconMarkup("simpleTrimCancelBtn") || getButtonIconMarkup("freeTrimCancelBtn");
+    const okIcon=getButtonIconMarkup("iconCropOkBtn") || getButtonIconMarkup("simpleTrimOkBtn") || getButtonIconMarkup("freeTrimOkBtn");
+    if(els.outputCloseBtn) els.outputCloseBtn.innerHTML=closeIcon;
+    if(els.outputShowBtn) els.outputShowBtn.innerHTML=`${okIcon}<span class="outputShowLabel">見せる</span>`;
   }
 
   async function handleMenuButtonConfirm(){
@@ -2009,7 +2019,34 @@ input[type="file"]::-webkit-file-upload-button{
     a.click();
     requestAnimationFrame(()=>a.remove());
   }
+  async function downloadCanvasAsFile(canvas,filename){
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+    if(blob){
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url;
+      a.download=filename;
+      a.style.display="none";
+      document.body.appendChild(a);
+      a.click();
+      requestAnimationFrame(()=>{
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
+      return;
+    }
+    const a=document.createElement("a");
+    a.href=canvas.toDataURL("image/png");
+    a.download=filename;
+    a.style.display="none";
+    document.body.appendChild(a);
+    a.click();
+    requestAnimationFrame(()=>a.remove());
+  }
   function showCanvasInModal(canvas,mode=""){ if(app.ui.isMenuOpen) toggleMenu(); els.outputImg.src=canvas.toDataURL("image/png"); els.outputModal.classList.add("show"); app.ui.outputMode=mode; app.ui.outputShowMode=false; els.outputImg.classList.remove("showMode"); els.outputShowBtn.style.display=mode==="single"?"inline-flex":"none"; updateMenuButtonState(); }
+  async function exportSingle(){ try{ showLoading("単体画像をファイル保存中..."); const cardCanvas=await renderCardCanvas({cardScale:EXPORT_CARD_SCALE,captureScale:EXPORT_HTML2CANVAS_SCALE}); await downloadCanvasAsFile(cardCanvas,"treca_single.png"); }catch(e){ console.error(e); showToast("単体ダウンロードに失敗しました。"); } finally { hideLoading(); } }
+  async function exportL(){ try{ showLoading("L版画像をファイル保存中..."); const cardCanvas=await renderCardCanvas({cardScale:EXPORT_CARD_SCALE,captureScale:EXPORT_HTML2CANVAS_SCALE}); await downloadCanvasAsFile(buildLCanvas(cardCanvas,EXPORT_CARD_SCALE),"treca_l_size.png"); }catch(e){ console.error(e); showToast("L版ダウンロードに失敗しました。"); } finally { hideLoading(); } }
+  async function export2L(){ try{ showLoading("2L版画像をファイル保存中..."); const cardCanvas=await renderCardCanvas({cardScale:EXPORT_CARD_SCALE,captureScale:EXPORT_HTML2CANVAS_SCALE}); await downloadCanvasAsFile(build2LCanvas(cardCanvas,EXPORT_CARD_SCALE),"treca_2l_size.png"); }catch(e){ console.error(e); showToast("2L版ダウンロードに失敗しました。"); } finally { hideLoading(); } }
   async function showSingle(){ try{ showLoading("単体画像を生成中..."); const cardCanvas=await renderCardCanvas({cardScale:MODAL_CARD_SCALE,captureScale:MODAL_HTML2CANVAS_SCALE}); showCanvasInModal(cardCanvas,"single"); }catch(e){ console.error(e); showToast("単体出力の表示に失敗しました。"); } finally { hideLoading(); } }
   async function showL(){ try{ showLoading("L版画像を生成中..."); const cardCanvas=await renderCardCanvas({cardScale:MODAL_CARD_SCALE,captureScale:MODAL_HTML2CANVAS_SCALE}); showCanvasInModal(buildLCanvas(cardCanvas,MODAL_CARD_SCALE),"other"); }catch(e){ console.error(e); showToast("L版出力の表示に失敗しました。"); } finally { hideLoading(); } }
   async function show2L(){ try{ showLoading("2L版画像を生成中..."); const cardCanvas=await renderCardCanvas({cardScale:MODAL_CARD_SCALE,captureScale:MODAL_HTML2CANVAS_SCALE}); showCanvasInModal(build2LCanvas(cardCanvas,MODAL_CARD_SCALE),"other"); }catch(e){ console.error(e); showToast("2L版出力の表示に失敗しました。"); } finally { hideLoading(); } }

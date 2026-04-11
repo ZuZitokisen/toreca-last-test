@@ -1,9 +1,9 @@
-<!-- version 2.4.20 ダウンロード復旧・モーダルボタン是正 -->
+<!-- version 2.4.21 トリミングモーダル再是正・出力導線再調整 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>トレカメーカー v2.4.20</title>
+<title>トレカメーカー v2.4.21</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
@@ -483,20 +483,20 @@ input[type="file"]::-webkit-file-upload-button{
 .modalGuide{color:#111827 !important}
 .stage{background:#fff !important;box-shadow:0 10px 28px rgba(15,23,42,.10)}
 .zoomRow{display:none !important}
-.trimRow{justify-content:space-between;gap:0;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 20px;pointer-events:none;z-index:1100}
-.trimRow .modalActionIconBtn{pointer-events:auto}
-.trimRow button + button{margin-left:0}
-.trimRow #iconCropOkBtn,.trimRow #simpleTrimOkBtn,.trimRow #freeTrimOkBtn{display:inline-flex !important}
-.trimRow #iconCropCancelBtn,.trimRow #simpleTrimCancelBtn,.trimRow #freeTrimCancelBtn{margin-left:0}
-.modalActionIconBtn{width:62px !important;height:62px !important;min-width:62px !important;min-height:62px !important;border-radius:999px;background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important;color:#111 !important;font-weight:700 !important}
+#iconCropModal .cropRow,#simpleTrimModal .cropRow,#freeTrimModal .trimRow{display:flex !important;flex-direction:row-reverse;justify-content:space-between;gap:0;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 20px;pointer-events:none;z-index:1100}
+#iconCropModal .cropRow .modalActionIconBtn,#simpleTrimModal .cropRow .modalActionIconBtn,#freeTrimModal .trimRow .modalActionIconBtn{flex:0 0 62px !important;pointer-events:auto}
+#iconCropModal .cropRow button + button,#simpleTrimModal .cropRow button + button,#freeTrimModal .trimRow button + button{margin-left:0}
+#iconCropModal .cropRow #iconCropOkBtn,#simpleTrimModal .cropRow #simpleTrimOkBtn,#freeTrimModal .trimRow #freeTrimOkBtn{display:inline-flex !important}
+#iconCropModal .cropRow #iconCropCancelBtn,#simpleTrimModal .cropRow #simpleTrimCancelBtn,#freeTrimModal .trimRow #freeTrimCancelBtn{margin-left:0}
+.modalActionIconBtn{width:62px !important;height:62px !important;min-width:62px !important;min-height:62px !important;flex:0 0 62px !important;border-radius:999px !important;background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important;color:#111 !important;font-weight:700 !important}
 .modalActionIconBtn img{width:28px !important;height:28px !important;object-fit:contain;display:block;margin:0 auto}
 .outputActionRow{display:flex;justify-content:space-between;gap:0;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 20px;pointer-events:none;z-index:1100}
 .outputActionRow button{pointer-events:auto}
-.outputModalBtn{width:62px !important;height:62px !important;min-width:62px !important;min-height:62px !important;border-radius:999px !important;background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important;color:#111 !important;font-weight:700 !important}
+.outputModalBtn{width:62px !important;height:62px !important;min-width:62px !important;min-height:62px !important;flex:0 0 62px !important;border-radius:999px !important;background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important;color:#111 !important;font-weight:700 !important}
 .outputModalBtn img{width:28px !important;height:28px !important;object-fit:contain;display:block;margin:0 auto}
-#outputShowBtn{font-size:11px;line-height:1.1;letter-spacing:.02em}
+#outputShowBtn{font-size:0;line-height:0;letter-spacing:0}
 
-#iconCropModal.show ~ #menuBtn, #simpleTrimModal.show ~ #menuBtn, #freeTrimModal.show ~ #menuBtn{display:none}
+#iconCropModal.show ~ #menuBtn, #simpleTrimModal.show ~ #menuBtn, #freeTrimModal.show ~ #menuBtn{display:none !important}
 
 </style>
 </head>
@@ -556,7 +556,7 @@ input[type="file"]::-webkit-file-upload-button{
     <div class="slotInfo">現在のスロット: <span id="currentSlotLabel">未選択</span></div>
     <div id="slotList"></div>
     <div id="saveStatus" class="saveStatus">未保存</div>
-    <div class="versionInfo">現在のバージョン：v2.4.20</div>
+    <div class="versionInfo">現在のバージョン：v2.4.21</div>
   </div>
 
   <div class="tabPanel">
@@ -1027,6 +1027,7 @@ input[type="file"]::-webkit-file-upload-button{
 
   function applySharedModalIcons(){
     if(els.outputCloseBtn) els.outputCloseBtn.innerHTML=getButtonIconMarkup("iconCropCancelBtn") || getButtonIconMarkup("simpleTrimCancelBtn") || getButtonIconMarkup("freeTrimCancelBtn");
+    if(els.outputShowBtn) els.outputShowBtn.innerHTML=getButtonIconMarkup("iconCropOkBtn") || getButtonIconMarkup("simpleTrimOkBtn") || getButtonIconMarkup("freeTrimOkBtn") || '見';
   }
 
   async function handleMenuButtonConfirm(){
@@ -1060,10 +1061,7 @@ input[type="file"]::-webkit-file-upload-button{
     }
     els.menuBtn.style.display='flex';
     if(hasModalConfirmMode()){
-      els.menuBtn.innerHTML=getButtonIconMarkup("iconCropOkBtn") || getButtonIconMarkup("simpleTrimOkBtn") || getButtonIconMarkup("freeTrimOkBtn");
-      els.menuBtn.style.left='max(20px, env(safe-area-inset-left))';
-      els.menuBtn.style.right='auto';
-      els.menuBtn.classList.add('iconOnlyBtn');
+      els.menuBtn.style.display='none';
       return;
     }
     if(app.ui.imageControlOpen){

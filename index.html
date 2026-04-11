@@ -1,10 +1,10 @@
-<!-- version 1.3.0 MONTH縦連結・WEEK横連結・一覧期間ナビ追加 -->
+<!-- version 1.3.1 MONTH縦連結・WEEK横連結・一覧期間ナビ追加 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>スケジュールツール Web確認版 v1.3.0</title>
+<title>スケジュールツール Web確認版 v1.3.1</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#ffffff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;
@@ -479,7 +479,7 @@ body{min-height:100dvh}
 </div>
 
 <div class="toast" id="toast"></div>
-<div class="version-badge">v1.3.0</div>
+<div class="version-badge">v1.3.1</div>
 
 <script>
 (() => {
@@ -501,6 +501,7 @@ body{min-height:100dvh}
     activeScreen: 'calendar',
     mode: 'day',
     focusDate: todayString(new Date()),
+    listDayDate: todayString(new Date()),
     weekBaseDate: startOfWeek(new Date()),
     detailId: null,
     editingId: null,
@@ -584,8 +585,20 @@ body{min-height:100dvh}
   }
   document.querySelectorAll('.bottom-nav button').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.screen)));
 
+  function syncModeButtons(){
+    document.querySelectorAll('#calendarSeg button, #listSeg button').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.mode === state.mode);
+    });
+    const isDay = state.mode === 'day';
+    const isWeek = state.mode === 'week';
+    const isMonth = state.mode === 'month';
+    document.getElementById('calendarDayView').classList.toggle('hidden', !isDay);
+    document.getElementById('calendarWeekView').classList.toggle('hidden', !isWeek);
+    document.getElementById('calendarMonthView').classList.toggle('hidden', !isMonth);
+  }
+
   function currentPeriodEvents(){
-    if(state.mode === 'day') return state.events.filter(e => e.date === state.focusDate).sort(sortEvents);
+    if(state.mode === 'day') return state.events.filter(e => e.date === state.listDayDate).sort(sortEvents);
     if(state.mode === 'week') return state.events.filter(e => inSameWeek(e.date, state.weekBaseDate)).sort(sortEvents);
     const monthKey = state.focusDate.slice(0,7);
     return state.events.filter(e => e.date.slice(0,7) === monthKey).sort(sortEvents);
@@ -711,6 +724,7 @@ function renderTimelineEvents(container, events, slotMinutes, totalSlots, option
   }
 
   function renderCalendarDay(){
+    state.listDayDate = state.focusDate;
     const events = state.events.filter(e => e.date === state.focusDate).sort(sortEvents);
     document.getElementById('dayLabel').textContent = formatDate(state.focusDate);
     renderTimelineEvents(document.getElementById('calendarDayTimeline'), events, 60, 24, {
@@ -822,6 +836,7 @@ function renderTimelineEvents(container, events, slotMinutes, totalSlots, option
       cell.innerHTML = `<div class="day-num">${dayNum}</div><div class="month-hearts">${types.map(type => `<span class="month-type" style="border:1px solid ${TYPE_CONFIG[type].color}">${typeShortLabel(type)}</span>`).join('')}</div>`;
       cell.addEventListener('click', () => {
         state.focusDate = dateStr;
+        state.listDayDate = dateStr;
         state.weekBaseDate = startOfWeek(new Date(dateStr + 'T00:00:00'));
         state.mode = 'day';
         syncModeButtons();
@@ -877,7 +892,7 @@ function renderTimelineEvents(container, events, slotMinutes, totalSlots, option
     if(!events.length) wrap.innerHTML = '<div class="empty-box" style="padding:14px;color:var(--muted)">該当期間にイベントはありません。</div>';
     else events.forEach(ev => wrap.appendChild(createEventCard(ev)));
     let label = '';
-    if(state.mode === 'day') label = formatDate(state.focusDate);
+    if(state.mode === 'day') label = formatDate(state.listDayDate);
     else if(state.mode === 'week'){
       const start = startOfWeek(state.weekBaseDate);
       const end = new Date(start); end.setDate(end.getDate()+6);
@@ -888,12 +903,12 @@ function renderTimelineEvents(container, events, slotMinutes, totalSlots, option
   }
 
   document.querySelectorAll('#calendarSeg button, #listSeg button').forEach(btn => btn.addEventListener('click', () => { state.mode = btn.dataset.mode; syncModeButtons(); render(); }));
-  document.getElementById('dayPrevBtn').addEventListener('click', () => { const d = new Date(state.focusDate + 'T00:00:00'); d.setDate(d.getDate()-1); state.focusDate = todayString(d); state.weekBaseDate = startOfWeek(d); render(); });
-  document.getElementById('dayNextBtn').addEventListener('click', () => { const d = new Date(state.focusDate + 'T00:00:00'); d.setDate(d.getDate()+1); state.focusDate = todayString(d); state.weekBaseDate = startOfWeek(d); render(); });
+  document.getElementById('dayPrevBtn').addEventListener('click', () => { const d = new Date(state.focusDate + 'T00:00:00'); d.setDate(d.getDate()-1); state.focusDate = todayString(d); state.listDayDate = state.focusDate; state.weekBaseDate = startOfWeek(d); render(); });
+  document.getElementById('dayNextBtn').addEventListener('click', () => { const d = new Date(state.focusDate + 'T00:00:00'); d.setDate(d.getDate()+1); state.focusDate = todayString(d); state.listDayDate = state.focusDate; state.weekBaseDate = startOfWeek(d); render(); });
   document.getElementById('weekPrevBtn').addEventListener('click', () => { state.weekBaseDate.setDate(state.weekBaseDate.getDate()-7); state.focusDate = todayString(state.weekBaseDate); render(); });
   document.getElementById('weekNextBtn').addEventListener('click', () => { state.weekBaseDate.setDate(state.weekBaseDate.getDate()+7); state.focusDate = todayString(state.weekBaseDate); render(); });
-  document.getElementById('listPrevBtn').addEventListener('click', () => { if(state.mode === 'day'){ const d = new Date(state.focusDate + 'T00:00:00'); d.setDate(d.getDate()-1); state.focusDate = todayString(d); state.weekBaseDate = startOfWeek(d); } else if(state.mode === 'week'){ state.weekBaseDate.setDate(state.weekBaseDate.getDate()-7); state.focusDate = todayString(state.weekBaseDate); } else { const d = new Date(state.focusDate + 'T00:00:00'); d.setMonth(d.getMonth()-1); state.focusDate = todayString(new Date(d.getFullYear(), d.getMonth(), 1)); state.weekBaseDate = startOfWeek(new Date(state.focusDate + 'T00:00:00')); } render(); });
-  document.getElementById('listNextBtn').addEventListener('click', () => { if(state.mode === 'day'){ const d = new Date(state.focusDate + 'T00:00:00'); d.setDate(d.getDate()+1); state.focusDate = todayString(d); state.weekBaseDate = startOfWeek(d); } else if(state.mode === 'week'){ state.weekBaseDate.setDate(state.weekBaseDate.getDate()+7); state.focusDate = todayString(state.weekBaseDate); } else { const d = new Date(state.focusDate + 'T00:00:00'); d.setMonth(d.getMonth()+1); state.focusDate = todayString(new Date(d.getFullYear(), d.getMonth(), 1)); state.weekBaseDate = startOfWeek(new Date(state.focusDate + 'T00:00:00')); } render(); });
+  document.getElementById('listPrevBtn').addEventListener('click', () => { if(state.mode === 'day'){ const d = new Date(state.focusDate + 'T00:00:00'); d.setDate(d.getDate()-1); state.focusDate = todayString(d); state.listDayDate = state.focusDate; state.weekBaseDate = startOfWeek(d); } else if(state.mode === 'week'){ state.weekBaseDate.setDate(state.weekBaseDate.getDate()-7); state.focusDate = todayString(state.weekBaseDate); } else { const d = new Date(state.focusDate + 'T00:00:00'); d.setMonth(d.getMonth()-1); state.focusDate = todayString(new Date(d.getFullYear(), d.getMonth(), 1)); state.weekBaseDate = startOfWeek(new Date(state.focusDate + 'T00:00:00')); } render(); });
+  document.getElementById('listNextBtn').addEventListener('click', () => { if(state.mode === 'day'){ const d = new Date(state.focusDate + 'T00:00:00'); d.setDate(d.getDate()+1); state.focusDate = todayString(d); state.listDayDate = state.focusDate; state.weekBaseDate = startOfWeek(d); } else if(state.mode === 'week'){ state.weekBaseDate.setDate(state.weekBaseDate.getDate()+7); state.focusDate = todayString(state.weekBaseDate); } else { const d = new Date(state.focusDate + 'T00:00:00'); d.setMonth(d.getMonth()+1); state.focusDate = todayString(new Date(d.getFullYear(), d.getMonth(), 1)); state.weekBaseDate = startOfWeek(new Date(state.focusDate + 'T00:00:00')); } render(); });
   document.getElementById('monthScroll').addEventListener('scroll', () => { if(state.mode === 'month') updateMonthBand(); }, {passive:true});
   document.getElementById('calendarWeekCarousel').addEventListener('scroll', () => { if(state.mode === 'week') updateWeekBand(); }, {passive:true});
 
@@ -967,6 +982,7 @@ function renderTimelineEvents(container, events, slotMinutes, totalSlots, option
     state.events = [newEvent, ...state.events];
     saveEvents();
     state.focusDate = form.date;
+    state.listDayDate = form.date;
     state.weekBaseDate = startOfWeek(new Date(form.date + 'T00:00:00'));
     state.mode = 'day';
     syncModeButtons();

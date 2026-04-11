@@ -1,9 +1,9 @@
-<!-- version 2.4.19 ダウンロード復旧・モーダルボタン是正・単体出力UI整理 -->
+<!-- version 2.4.20 ダウンロード復旧・モーダルボタン是正 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>トレカメーカー v2.4.19</title>
+<title>トレカメーカー v2.4.20</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
@@ -483,26 +483,20 @@ input[type="file"]::-webkit-file-upload-button{
 .modalGuide{color:#111827 !important}
 .stage{background:#fff !important;box-shadow:0 10px 28px rgba(15,23,42,.10)}
 .zoomRow{display:none !important}
-.trimRow{justify-content:flex-end;gap:0;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 20px;pointer-events:none;z-index:1100}
+.trimRow{justify-content:space-between;gap:0;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 20px;pointer-events:none;z-index:1100}
 .trimRow .modalActionIconBtn{pointer-events:auto}
-.trimRow button + button{margin-left:10px}
-.trimRow #iconCropOkBtn,.trimRow #simpleTrimOkBtn,.trimRow #freeTrimOkBtn{display:none !important}
-.trimRow #iconCropCancelBtn,.trimRow #simpleTrimCancelBtn,.trimRow #freeTrimCancelBtn{margin-left:auto}
-.modalActionIconBtn{width:62px !important;height:62px !important;min-width:62px !important;min-height:62px !important;border-radius:999px;background:rgba(255,255,255,.96);border:1px solid rgba(15,23,42,.08);box-shadow:0 12px 28px rgba(15,23,42,.14);display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important}
-.modalActionIconBtn img{width:28px !important;height:28px !important;object-fit:contain;display:block;margin:0 auto}
-#iconCropModal.show ~ #menuBtn, #simpleTrimModal.show ~ #menuBtn, #freeTrimModal.show ~ #menuBtn{display:none}
-
-
-.outputActionRow{position:fixed;left:max(20px, env(safe-area-inset-left));right:max(20px, env(safe-area-inset-right));bottom:max(20px, env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:center;pointer-events:none;z-index:1200}
-.outputActionRow button{pointer-events:auto}
-.outputFloatingBtn{display:inline-flex;align-items:center;justify-content:center;padding:0 !important;min-width:62px;width:62px;height:62px;min-height:62px;border-radius:999px;font-size:12px;line-height:1.1;text-align:center}
-.outputCloseIconBtn img{width:28px;height:28px;object-fit:contain;display:block}
-.trimRow{justify-content:space-between;align-items:center}
+.trimRow button + button{margin-left:0}
 .trimRow #iconCropOkBtn,.trimRow #simpleTrimOkBtn,.trimRow #freeTrimOkBtn{display:inline-flex !important}
-.trimRow #iconCropCancelBtn,.trimRow #simpleTrimCancelBtn,.trimRow #freeTrimCancelBtn{margin-left:0 !important}
-.modalActionIconBtn,.outputFloatingBtn{background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;color:#111 !important}
-.modalActionIconBtn:active,.outputFloatingBtn:active{transform:translateY(1px) scale(.99);background:rgba(255,255,255,.26) !important;box-shadow:0 6px 14px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.35) !important}
-#outputModal.show ~ #menuBtn{display:none !important}
+.trimRow #iconCropCancelBtn,.trimRow #simpleTrimCancelBtn,.trimRow #freeTrimCancelBtn{margin-left:0}
+.modalActionIconBtn{width:62px !important;height:62px !important;min-width:62px !important;min-height:62px !important;border-radius:999px;background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important;color:#111 !important;font-weight:700 !important}
+.modalActionIconBtn img{width:28px !important;height:28px !important;object-fit:contain;display:block;margin:0 auto}
+.outputActionRow{display:flex;justify-content:space-between;gap:0;position:fixed;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));padding:0 20px;pointer-events:none;z-index:1100}
+.outputActionRow button{pointer-events:auto}
+.outputModalBtn{width:62px !important;height:62px !important;min-width:62px !important;min-height:62px !important;border-radius:999px !important;background:rgba(255,255,255,.34) !important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.42) !important;box-shadow:0 10px 24px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.45) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:0 !important;color:#111 !important;font-weight:700 !important}
+.outputModalBtn img{width:28px !important;height:28px !important;object-fit:contain;display:block;margin:0 auto}
+#outputShowBtn{font-size:11px;line-height:1.1;letter-spacing:.02em}
+
+#iconCropModal.show ~ #menuBtn, #simpleTrimModal.show ~ #menuBtn, #freeTrimModal.show ~ #menuBtn{display:none}
 
 </style>
 </head>
@@ -562,7 +556,7 @@ input[type="file"]::-webkit-file-upload-button{
     <div class="slotInfo">現在のスロット: <span id="currentSlotLabel">未選択</span></div>
     <div id="slotList"></div>
     <div id="saveStatus" class="saveStatus">未保存</div>
-    <div class="versionInfo">現在のバージョン：v2.4.19</div>
+    <div class="versionInfo">現在のバージョン：v2.4.20</div>
   </div>
 
   <div class="tabPanel">
@@ -705,8 +699,8 @@ input[type="file"]::-webkit-file-upload-button{
     <div class="modalGuide">長押しで保存してください</div>
     <img id="outputImg" alt="出力画像">
     <div class="outputActionRow">
-      <button id="outputShowBtn" type="button" class="outputFloatingBtn" style="display:none;">見せる</button>
-      <button id="outputCloseBtn" type="button" class="outputFloatingBtn outputCloseIconBtn" aria-label="閉じる"></button>
+      <button id="outputShowBtn" type="button" class="outputModalBtn" style="display:none;">見せる</button>
+      <button id="outputCloseBtn" type="button" class="outputModalBtn modalActionIconBtn" aria-label="閉じる"></button>
     </div>
   </div>
 </div>
@@ -901,7 +895,7 @@ input[type="file"]::-webkit-file-upload-button{
 
   async function init(){
     document.title = "トレカメーカー " + VERSION;
-    buildSnsCheckboxes(); buildImageMenu(); buildSimpleTrimShapeButtons(); applySharedModalButtonIcons(); bindUI();
+    buildSnsCheckboxes(); buildImageMenu(); buildSimpleTrimShapeButtons(); bindUI();
     updateMenuButtonState();
     try{
       app.db = await openDb();
@@ -1025,6 +1019,16 @@ input[type="file"]::-webkit-file-upload-button{
     updateMenuButtonState();
   }
 
+  function getButtonIconMarkup(sourceId){
+    const source=$(sourceId);
+    const img=source&&source.querySelector?source.querySelector("img"):null;
+    return img?img.outerHTML:"";
+  }
+
+  function applySharedModalIcons(){
+    if(els.outputCloseBtn) els.outputCloseBtn.innerHTML=getButtonIconMarkup("iconCropCancelBtn") || getButtonIconMarkup("simpleTrimCancelBtn") || getButtonIconMarkup("freeTrimCancelBtn");
+  }
+
   async function handleMenuButtonConfirm(){
     if(app.ui.imageControlOpen){
       stopImagePositionControl();
@@ -1048,32 +1052,25 @@ input[type="file"]::-webkit-file-upload-button{
     if(app.ui.isMenuOpen) toggleMenu();
   }
 
-  function getModalOkIconHtml(){
-    return (els.iconCropOkBtn && els.iconCropOkBtn.innerHTML) || '<span>決定</span>';
-  }
-
-  function getModalCloseIconHtml(){
-    return (els.iconCropCancelBtn && els.iconCropCancelBtn.innerHTML) || '<span>閉じる</span>';
-  }
-
-  function applySharedModalButtonIcons(){
-    const okHtml=getModalOkIconHtml();
-    const closeHtml=getModalCloseIconHtml();
-    [els.iconCropOkBtn, els.simpleTrimOkBtn, els.freeTrimOkBtn].forEach(btn=>{ if(btn) btn.innerHTML=okHtml; });
-    [els.iconCropCancelBtn, els.simpleTrimCancelBtn, els.freeTrimCancelBtn, els.outputCloseBtn].forEach(btn=>{ if(btn) btn.innerHTML=closeHtml; });
-  }
-
-  function closeMenuIfOpen(){
-    if(app.ui.isMenuOpen) toggleMenu();
-  }
-
   function updateMenuButtonState(){
-    if(hasModalConfirmMode()) return;
-    if(app.ui.imageControlOpen){
-      els.menuBtn.innerHTML=getModalOkIconHtml();
+    const outputOpen=!!(els.outputModal && els.outputModal.classList.contains("show"));
+    if(outputOpen){
+      els.menuBtn.style.display='none';
+      return;
+    }
+    els.menuBtn.style.display='flex';
+    if(hasModalConfirmMode()){
+      els.menuBtn.innerHTML=getButtonIconMarkup("iconCropOkBtn") || getButtonIconMarkup("simpleTrimOkBtn") || getButtonIconMarkup("freeTrimOkBtn");
       els.menuBtn.style.left='max(20px, env(safe-area-inset-left))';
       els.menuBtn.style.right='auto';
-      els.menuBtn.classList.add('iconOnlyBtn','glassButton');
+      els.menuBtn.classList.add('iconOnlyBtn');
+      return;
+    }
+    if(app.ui.imageControlOpen){
+      els.menuBtn.innerHTML=getButtonIconMarkup("iconCropOkBtn") || getButtonIconMarkup("simpleTrimOkBtn") || getButtonIconMarkup("freeTrimOkBtn");
+      els.menuBtn.style.left='max(20px, env(safe-area-inset-left))';
+      els.menuBtn.style.right='auto';
+      els.menuBtn.classList.add('iconOnlyBtn');
       return;
     }
     if(app.ui.isMenuOpen){
@@ -1081,12 +1078,12 @@ input[type="file"]::-webkit-file-upload-button{
       els.menuBtn.style.left='auto';
       els.menuBtn.style.right='max(20px, env(safe-area-inset-right))';
       els.menuBtn.classList.remove('iconOnlyBtn');
-      return;
+    }else{
+      els.menuBtn.textContent='MENU OPEN';
+      els.menuBtn.style.right='auto';
+      els.menuBtn.style.left='max(20px, env(safe-area-inset-left))';
+      els.menuBtn.classList.remove('iconOnlyBtn');
     }
-    els.menuBtn.textContent='MENU OPEN';
-    els.menuBtn.style.right='auto';
-    els.menuBtn.style.left='max(20px, env(safe-area-inset-left))';
-    els.menuBtn.classList.remove('iconOnlyBtn');
   }
 
 
@@ -1983,21 +1980,71 @@ input[type="file"]::-webkit-file-upload-button{
       updatePlacementGuides();
     }
   }
-  async function saveCanvasAsPng(canvas,filename){ const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png")); const file=blob?new File([blob],filename,{type:"image/png"}):null; if(file&&navigator.canShare&&navigator.share&&navigator.canShare({files:[file]})){ try{ await navigator.share({files:[file],title:filename}); return; }catch(e){} } if(blob){ const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000); return; } const a=document.createElement("a"); a.href=canvas.toDataURL("image/png"); a.download=filename; document.body.appendChild(a); a.click(); a.remove(); }
-  function buildLCanvas(cardCanvas,printScale=EXPORT_CARD_SCALE){ const canvas=document.createElement("canvas"); canvas.width=1051*printScale; canvas.height=1500*printScale; const ctx=canvas.getContext("2d"); ctx.fillStyle="#fff"; ctx.fillRect(0,0,canvas.width,canvas.height); const x=(canvas.width-cardCanvas.width)/2; const y=(canvas.height-cardCanvas.height)/2; ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality="high"; ctx.drawImage(cardCanvas,x,y,cardCanvas.width,cardCanvas.height); return canvas; }
-  function build2LCanvas(cardCanvas,printScale=EXPORT_CARD_SCALE){ const canvas=document.createElement("canvas"); canvas.width=2102*printScale; canvas.height=1500*printScale; const ctx=canvas.getContext("2d"); ctx.fillStyle="#fff"; ctx.fillRect(0,0,canvas.width,canvas.height); const gap=120*printScale; const totalWidth=cardCanvas.width*2+gap; const startX=(canvas.width-totalWidth)/2; const y=(canvas.height-cardCanvas.height)/2; ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality="high"; ctx.drawImage(cardCanvas,startX,y,cardCanvas.width,cardCanvas.height); ctx.drawImage(cardCanvas,startX+cardCanvas.width+gap,y,cardCanvas.width,cardCanvas.height); return canvas; }
-  async function exportSingle(){ try{ showLoading("高画質の単体画像を出力中..."); const cardCanvas=await renderCardCanvas({cardScale:EXPORT_CARD_SCALE,captureScale:EXPORT_HTML2CANVAS_SCALE}); await saveCanvasAsPng(cardCanvas,"card_single.png"); }catch(e){ console.error(e); showToast("単体出力に失敗しました。"); } finally { hideLoading(); } }
-  async function exportL(){ try{ showLoading("高画質のL版画像を出力中..."); const cardCanvas=await renderCardCanvas({cardScale:EXPORT_CARD_SCALE,captureScale:EXPORT_HTML2CANVAS_SCALE}); await saveCanvasAsPng(buildLCanvas(cardCanvas,EXPORT_CARD_SCALE),"card_L_print.png"); }catch(e){ console.error(e); showToast("L版出力に失敗しました。"); } finally { hideLoading(); } }
-  async function export2L(){ try{ showLoading("高画質の2L版画像を出力中..."); const cardCanvas=await renderCardCanvas({cardScale:EXPORT_CARD_SCALE,captureScale:EXPORT_HTML2CANVAS_SCALE}); await saveCanvasAsPng(build2LCanvas(cardCanvas,EXPORT_CARD_SCALE),"card_2L_print.png"); }catch(e){ console.error(e); showToast("2L版出力に失敗しました。"); } finally { hideLoading(); } }
-  function showCanvasInModal(canvas,mode=""){ closeMenuIfOpen(); els.outputImg.src=canvas.toDataURL("image/png"); els.outputModal.classList.add("show"); app.ui.outputMode=mode; app.ui.outputShowMode=false; els.outputImg.classList.remove("showMode"); els.outputShowBtn.style.display=mode==="single"?"inline-flex":"none"; }
-  async function showSingle(){ try{ closeMenuIfOpen(); showLoading("単体画像を生成中..."); const cardCanvas=await renderCardCanvas({cardScale:MODAL_CARD_SCALE,captureScale:MODAL_HTML2CANVAS_SCALE}); showCanvasInModal(cardCanvas,"single"); }catch(e){ console.error(e); showToast("単体出力の表示に失敗しました。"); } finally { hideLoading(); } }
-  async function showL(){ try{ closeMenuIfOpen(); showLoading("L版画像を生成中..."); const cardCanvas=await renderCardCanvas({cardScale:MODAL_CARD_SCALE,captureScale:MODAL_HTML2CANVAS_SCALE}); showCanvasInModal(buildLCanvas(cardCanvas,MODAL_CARD_SCALE),"other"); }catch(e){ console.error(e); showToast("L版出力の表示に失敗しました。"); } finally { hideLoading(); } }
-  async function show2L(){ try{ closeMenuIfOpen(); showLoading("2L版画像を生成中..."); const cardCanvas=await renderCardCanvas({cardScale:MODAL_CARD_SCALE,captureScale:MODAL_HTML2CANVAS_SCALE}); showCanvasInModal(build2LCanvas(cardCanvas,MODAL_CARD_SCALE),"other"); }catch(e){ console.error(e); showToast("2L版出力の表示に失敗しました。"); } finally { hideLoading(); } }
-  function hideOutputModal(){ els.outputModal.classList.remove("show"); els.outputImg.src=""; app.ui.outputMode=""; app.ui.outputShowMode=false; els.outputImg.classList.remove("showMode"); els.outputShowBtn.style.display="none"; }
+  async function saveCanvasAsPng(canvas,filename){
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+    const file=blob?new File([blob],filename,{type:"image/png"}):null;
+    if(file&&navigator.canShare&&navigator.share&&navigator.canShare({files:[file]})){
+      try{
+        await navigator.share({files:[file],title:filename});
+        return;
+      }catch(e){}
+    }
+    if(blob){
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url;
+      a.download=filename;
+      a.style.display="none";
+      document.body.appendChild(a);
+      a.click();
+      requestAnimationFrame(()=>{
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
+      return;
+    }
+    const a=document.createElement("a");
+    a.href=canvas.toDataURL("image/png");
+    a.download=filename;
+    a.style.display="none";
+    document.body.appendChild(a);
+    a.click();
+    requestAnimationFrame(()=>a.remove());
+  }
+  function showCanvasInModal(canvas,mode=""){ if(app.ui.isMenuOpen) toggleMenu(); els.outputImg.src=canvas.toDataURL("image/png"); els.outputModal.classList.add("show"); app.ui.outputMode=mode; app.ui.outputShowMode=false; els.outputImg.classList.remove("showMode"); els.outputShowBtn.style.display=mode==="single"?"inline-flex":"none"; updateMenuButtonState(); }
+  async function showSingle(){ try{ showLoading("単体画像を生成中..."); const cardCanvas=await renderCardCanvas({cardScale:MODAL_CARD_SCALE,captureScale:MODAL_HTML2CANVAS_SCALE}); showCanvasInModal(cardCanvas,"single"); }catch(e){ console.error(e); showToast("単体出力の表示に失敗しました。"); } finally { hideLoading(); } }
+  async function showL(){ try{ showLoading("L版画像を生成中..."); const cardCanvas=await renderCardCanvas({cardScale:MODAL_CARD_SCALE,captureScale:MODAL_HTML2CANVAS_SCALE}); showCanvasInModal(buildLCanvas(cardCanvas,MODAL_CARD_SCALE),"other"); }catch(e){ console.error(e); showToast("L版出力の表示に失敗しました。"); } finally { hideLoading(); } }
+  async function show2L(){ try{ showLoading("2L版画像を生成中..."); const cardCanvas=await renderCardCanvas({cardScale:MODAL_CARD_SCALE,captureScale:MODAL_HTML2CANVAS_SCALE}); showCanvasInModal(build2LCanvas(cardCanvas,MODAL_CARD_SCALE),"other"); }catch(e){ console.error(e); showToast("2L版出力の表示に失敗しました。"); } finally { hideLoading(); } }
+  function hideOutputModal(){ els.outputModal.classList.remove("show"); els.outputImg.src=""; app.ui.outputMode=""; app.ui.outputShowMode=false; els.outputImg.classList.remove("showMode"); els.outputShowBtn.style.display="none"; updateMenuButtonState(); }
   function showLoading(text="処理中..."){ els.loadingBox.textContent=text; els.loadingOverlay.classList.add("show"); }
   function hideLoading(){ els.loadingOverlay.classList.remove("show"); }
   function showToast(message){ clearTimeout(app.toastTimer); els.toast.textContent=message; els.toast.classList.add("show"); app.toastTimer=setTimeout(()=>els.toast.classList.remove("show"),2200); }
+  function setSaveStatus(type,text){ els.saveStatus.classList.remove("saving","saved","error"); if(type) els.saveStatus.classList.add(type); els.saveStatus.textContent=text; }
 
+  function getPointFromEvent(e){ if(e.touches&&e.touches[0]) return {x:e.touches[0].clientX,y:e.touches[0].clientY}; if(e.changedTouches&&e.changedTouches[0]) return {x:e.changedTouches[0].clientX,y:e.changedTouches[0].clientY}; return {x:e.clientX,y:e.clientY}; }
+  function getTouchDistance(e){ if(!e.touches||e.touches.length<2) return 0; const dx=e.touches[1].clientX-e.touches[0].clientX; const dy=e.touches[1].clientY-e.touches[0].clientY; return Math.hypot(dx,dy); }
+  function openIconCrop(src,target="icon"){ closeMenuBeforeEditorModal(); const img=new Image(); img.onload=async()=>{ iconCrop.image=img; iconCrop.target=target; iconCrop.x=0; iconCrop.y=0; iconCrop.pinching=false; els.iconCropImage.src=img.src; els.iconCropModal.classList.add("show"); setModalConfirmMode("iconCrop"); await waitNextFrame(); await waitNextFrame(); layoutIconCrop(); fitIconCropImage(true); renderIconCrop(); }; img.src=src; }
+  function closeIconCrop(){ els.iconCropModal.classList.remove("show"); iconCrop.dragging=false; iconCrop.pinching=false; setModalConfirmMode(""); }
+  function layoutIconCrop(){ const rect=els.iconCropStage.getBoundingClientRect(); iconCrop.stageSize=rect.width; iconCrop.circleDiameter=rect.width*0.56; }
+  function fitIconCropImage(resetPosition){ const img=iconCrop.image; if(!img) return; const coverScale=Math.max(iconCrop.circleDiameter/img.naturalWidth,iconCrop.circleDiameter/img.naturalHeight); iconCrop.minScale=coverScale; iconCrop.maxScale=coverScale*6; if(resetPosition){ iconCrop.x=0; iconCrop.y=0; iconCrop.scale=coverScale; } else { iconCrop.scale=Math.max(iconCrop.minScale,Math.min(iconCrop.maxScale,iconCrop.scale)); } syncIconZoomSlider(); }
+  function syncIconZoomSlider(){ const ratio=iconCrop.scale/iconCrop.minScale; els.iconZoomRange.value=String(Math.max(100,Math.min(600,ratio*100))); }
+  function setIconZoomBySlider(value){ const clamped=Math.max(100,Math.min(600,value)); iconCrop.scale=iconCrop.minScale*(clamped/100); renderIconCrop(); syncIconZoomSlider(); }
+  function renderIconCrop(){ if(!iconCrop.image) return; const width=iconCrop.image.naturalWidth*iconCrop.scale; const height=iconCrop.image.naturalHeight*iconCrop.scale; els.iconCropImage.style.width=width+"px"; els.iconCropImage.style.height=height+"px"; els.iconCropImage.style.transform=`translate(-50%,-50%) translate(${iconCrop.x}px,${iconCrop.y}px)`; }
+  function startIconCropDrag(e){ if(!els.iconCropModal.classList.contains("show")) return; if(e.touches&&e.touches.length===2){ e.preventDefault(); iconCrop.pinching=true; iconCrop.dragging=false; iconCrop.pinchStartDistance=getTouchDistance(e); iconCrop.pinchStartScale=iconCrop.scale; return; } if(e.touches&&e.touches.length>1) return; e.preventDefault(); const p=getPointFromEvent(e); iconCrop.dragging=true; iconCrop.pinching=false; iconCrop.startX=p.x; iconCrop.startY=p.y; iconCrop.baseX=iconCrop.x; iconCrop.baseY=iconCrop.y; }
+  function moveIconCropDrag(e){ if(iconCrop.pinching&&e.touches&&e.touches.length===2){ e.preventDefault(); const distance=getTouchDistance(e); if(iconCrop.pinchStartDistance>0){ const nextScale=iconCrop.pinchStartScale*(distance/iconCrop.pinchStartDistance); iconCrop.scale=Math.max(iconCrop.minScale,Math.min(iconCrop.maxScale,nextScale)); renderIconCrop(); syncIconZoomSlider(); } return; } if(!iconCrop.dragging) return; e.preventDefault(); const p=getPointFromEvent(e); iconCrop.x=iconCrop.baseX+(p.x-iconCrop.startX); iconCrop.y=iconCrop.baseY+(p.y-iconCrop.startY); renderIconCrop(); }
+  function endIconCropDrag(){ iconCrop.dragging=false; iconCrop.pinching=false; }
+  async function applyIconCrop(){ if(!iconCrop.image) return; const out=document.createElement("canvas"); out.width=ICON_OUTPUT_SIZE; out.height=ICON_OUTPUT_SIZE; const ctx=out.getContext("2d"); ctx.save(); ctx.beginPath(); ctx.arc(ICON_OUTPUT_SIZE/2,ICON_OUTPUT_SIZE/2,ICON_OUTPUT_SIZE/2,0,Math.PI*2); ctx.closePath(); ctx.clip(); const ratio=ICON_OUTPUT_SIZE/iconCrop.circleDiameter; const drawW=iconCrop.image.naturalWidth*iconCrop.scale*ratio; const drawH=iconCrop.image.naturalHeight*iconCrop.scale*ratio; const dx=(ICON_OUTPUT_SIZE/2)+iconCrop.x*ratio-drawW/2; const dy=(ICON_OUTPUT_SIZE/2)+iconCrop.y*ratio-drawH/2; ctx.drawImage(iconCrop.image,dx,dy,drawW,drawH); ctx.restore(); const originalSrc=out.toDataURL("image/png"); const previewSrc=await downscaleImage(originalSrc,MAX_PREVIEW_ICON_SIDE,"image/jpeg",0.9); if(iconCrop.target==="qrImage"){ app.state.qrImage={src:previewSrc,originalSrc}; renderQR(); } else { app.state.icon={src:previewSrc,originalSrc}; renderIcon(); } closeIconCrop(); queueSave(); }
+
+  function getTrimSource(index){ const img=app.state.images[index]; return (img && (img.baseOriginalSrc||img.originalSrc||img.src)) || ""; }
+  function openSimpleTrim(index){ if(app.ui.imageControlOpen && app.ui.imageControlIndex===index) stopImagePositionControl(); closeMenuBeforeEditorModal(); const src=getTrimSource(index); if(!src){ alert("先に画像を選択してください。"); return; } const img=new Image(); img.onload=async()=>{ simpleTrim.slotIndex=index; simpleTrim.image=img; simpleTrim.shapeKey="circle"; simpleTrim.x=0; simpleTrim.y=0; simpleTrim.dragging=false; simpleTrim.pinching=false; els.simpleTrimImage.src=img.src; els.simpleTrimModal.classList.add("show"); setModalConfirmMode("simpleTrim"); await waitNextFrame(); await waitNextFrame(); layoutSimpleTrim(); fitSimpleTrimImage(true); renderSimpleTrim(); }; img.src=src; }
+  function closeSimpleTrim(){ els.simpleTrimModal.classList.remove("show"); simpleTrim.dragging=false; simpleTrim.pinching=false; setModalConfirmMode(""); }
+  function layoutSimpleTrim(){ const rect=els.simpleTrimStage.getBoundingClientRect(); simpleTrim.stageSize=rect.width; updateSimpleTrimHole(); }
+  function updateSimpleTrimHole(){ const stage=simpleTrim.stageSize; const shape=SIMPLE_TRIM_SHAPES[simpleTrim.shapeKey]; const maxSize=stage*0.72; if(shape.ratio>=1){ simpleTrim.holeWidth=maxSize; simpleTrim.holeHeight=maxSize/shape.ratio; } else { simpleTrim.holeHeight=maxSize; simpleTrim.holeWidth=maxSize*shape.ratio; } }
+  function fitSimpleTrimImage(reset){ const img=simpleTrim.image; if(!img) return; const coverScale=Math.max(simpleTrim.holeWidth/img.naturalWidth,simpleTrim.holeHeight/img.naturalHeight); simpleTrim.minScale=coverScale; simpleTrim.maxScale=coverScale*6; if(reset){ simpleTrim.x=0; simpleTrim.y=0; simpleTrim.scale=coverScale; } else { simpleTrim.scale=Math.max(simpleTrim.minScale,Math.min(simpleTrim.maxScale,simpleTrim.scale)); } }
+  function renderSimpleTrim(){ const img=simpleTrim.image; if(!img) return; const width=img.naturalWidth*simpleTrim.scale; const height=img.naturalHeight*simpleTrim.scale; els.simpleTrimImage.style.width=width+"px"; els.simpleTrimImage.style.height=height+"px"; els.simpleTrimImage.style.transform=`translate(-50%,-50%) translate(${simpleTrim.x}px,${simpleTrim.y}px)`; const shape=SIMPLE_TRIM_SHAPES[simpleTrim.shapeKey]; const x=(100-(simpleTrim.holeWidth/simpleTrim.stageSize*100))/2; const y=(100-(simpleTrim.holeHeight/simpleTrim.stageSize*100))/2; const w=(simpleTrim.holeWidth/simpleTrim.stageSize*100); const h=(simpleTrim.holeHeight/simpleTrim.stageSize*100); if(shape.kind==="circle") els.simpleTrimMask.innerHTML=`<defs><mask id="simpleTrimHoleMask"><rect x="0" y="0" width="100" height="100" fill="white"></rect><ellipse cx="50" cy="50" rx="${w/2}" ry="${h/2}" fill="black"></ellipse></mask></defs><rect x="0" y="0" width="100" height="100" fill="rgba(0,0,0,0.45)" mask="url(#simpleTrimHoleMask)"></rect><ellipse cx="50" cy="50" rx="${w/2}" ry="${h/2}" fill="none" stroke="#fff" stroke-width="1.2"></ellipse>`;
+    else els.simpleTrimMask.innerHTML=`<defs><mask id="simpleTrimHoleMask"><rect x="0" y="0" width="100" height="100" fill="white"></rect><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="black"></rect></mask></defs><rect x="0" y="0" width="100" height="100" fill="rgba(0,0,0,0.45)" mask="url(#simpleTrimHoleMask)"></rect><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="#fff" stroke-width="1.2"></rect>`;
+    [...els.simpleTrimShapeRow.querySelectorAll("button")].forEach(btn=>btn.classList.toggle("active",btn.dataset.shapeKey===simpleTrim.shapeKey));
+  }
   function startSimpleTrimDrag(e){ if(!els.simpleTrimModal.classList.contains("show")) return; if(e.touches&&e.touches.length===2){ e.preventDefault(); simpleTrim.pinching=true; simpleTrim.dragging=false; simpleTrim.pinchStartDistance=getTouchDistance(e); simpleTrim.pinchStartScale=simpleTrim.scale; return; } if(e.touches&&e.touches.length>1) return; e.preventDefault(); const p=getPointFromEvent(e); simpleTrim.dragging=true; simpleTrim.pinching=false; simpleTrim.startX=p.x; simpleTrim.startY=p.y; simpleTrim.baseX=simpleTrim.x; simpleTrim.baseY=simpleTrim.y; }
   function moveSimpleTrimDrag(e){ if(simpleTrim.pinching&&e.touches&&e.touches.length===2){ e.preventDefault(); const d=getTouchDistance(e); if(simpleTrim.pinchStartDistance>0){ const next=simpleTrim.pinchStartScale*(d/simpleTrim.pinchStartDistance); simpleTrim.scale=Math.max(simpleTrim.minScale,Math.min(simpleTrim.maxScale,next)); renderSimpleTrim(); } return; } if(!simpleTrim.dragging) return; e.preventDefault(); const p=getPointFromEvent(e); simpleTrim.x=simpleTrim.baseX+(p.x-simpleTrim.startX); simpleTrim.y=simpleTrim.baseY+(p.y-simpleTrim.startY); renderSimpleTrim(); }
   function endSimpleTrimDrag(){ simpleTrim.dragging=false; simpleTrim.pinching=false; }
